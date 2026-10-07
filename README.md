@@ -1,26 +1,24 @@
-# YuanPei_Young_Scholar_Program
-This project builds upon the foundational machine learning and deep learning research conducted during my participation in the **Yuanpei Young Scholars (YSA)** program (Computer Vision Research Track). 
+# Skeleton-Based Sign Language Recognition: SAM-SLR Reproduction
 
-## Skeleton-Based Sign Language Recognition
+Final project from the Yuanpei Young Scholars computer vision program (2023-24). I reproduced the two skeleton-based models from **SAM-SLR** (Jiang et al., *Skeleton Aware Multi-modal Sign Language Recognition*, CVPR 2021 Workshops) using the authors' released code and pretrained checkpoints, and wrote a short report on how they work.
 
-This repository contains the research paper and experimental Jupyter notebooks for my project on translating World-Level American Sign Language (WLASL) into English words using computer vision and skeleton-based action recognition.
+## The models
+* **SL-GCN**: a graph convolutional network over 27 whole-body keypoints, reduced from the 133 that the pose estimator outputs. Four streams (joint, bone, joint motion, bone motion) run separately and are combined with a weighted ensemble. Each block has a decoupled spatial graph convolution, spatial/temporal/channel attention, a temporal convolution, and DropGraph.
+* **SSTCN**: a separable spatial-temporal convolutional network on features from 33 keypoints over 60 frames.
 
-### Project Overview
-Sign language is a visual language that relies on complex hand gestures, body postures, and facial expressions. Traditional SLR models struggle with high accuracy. In this research, I reproduced and compared two skeleton-based frameworks:
-* **SL-GCN** (Sign Language Graph Convolution Network) 
-* **SSTCN** (Separable Spatial Temporal Convolution Network)
+## What I did
+* Set up the authors' code ([jackyjsy/CVPR21Chal-SLR](https://github.com/jackyjsy/CVPR21Chal-SLR)) and pretrained checkpoints on a Tencent Cloud server. Cloning over HTTPS and SSH both failed on that server, so I uploaded the code as an archive. The Discussion section of the report covers the setup problems.
+* Ran the four SL-GCN streams, the multi-stream ensemble, and SSTCN, and checked the outputs against the paper's tables.
+* Wrote the report (`Skeleton_Based_Sign_Language_Recognition_Report.pdf`): method, results, and limits (word-level output only; benchmark videos are much cleaner than real-world footage).
 
-The models were evaluated on the Word-Level American Sign Language Recognition (WLASL) dataset, converting video inputs into skeleton graphs for deep learning classification.
+## Note on the report's results
+The released checkpoints come from the CVPR 2021 ChaLearn challenge and were trained on **AUTSL** (Turkish Sign Language, 226 signs). The result tables in the report (Figures 5 and 6) are **AUTSL validation** figures and match the SL-GCN and SSTCN tables in the SAM-SLR paper. The report and an earlier version of this README described them as WLASL-2000 results, which was wrong: SAM-SLR's WLASL-2000 Top-1 accuracy is under 60% (58.73% in the report's own Figure 3).
 
-### Key Results
-Our implementation successfully reproduced the baseline results, proving the effectiveness of multi-stream approaches:
-* **Multi-stream SL-GCN:** Achieved **95.45%** Top-1 Accuracy and **99.25%** Top-5 Accuracy.
-* **SSTCN (24x24 feature size):** Achieved **94.32%** Top-1 Accuracy.
+## Other files
+The three notebooks are coursework from the program's deep learning bootcamp, not part of the sign language pipeline:
+* `Deep_Learning_in_Practice_Bootcamp.ipynb`: PyTorch training template (Dataset class, DataLoaders, loss, optimizer and scheduler, Weights & Biases logging)
+* `Deep_learning_in_spaceship_titanic.ipynb`: the same template applied to the Kaggle Spaceship Titanic dataset
+* `YSA_FW23_Group_4_HW_1_ipynb_resnet50.ipynb`: group homework, ResNet-50 image classification with a Kaggle submission
 
-### Repository Structure
-* `Skeleton_Based_Sign_Language_Recognition_Report.pdf`: The complete research paper including methodology, data tables, and deployment discussions.
-* `*.ipynb` (Colab Notebooks): Experimental code and coursework notebooks used during the project to test models and process the WLASL dataset from PapersWithCode.
-
-### Tech Stack & Challenges
-* **Tools:** Python, Deep Learning (GCN/CNN), Google Colab.
-* **Deployment:** Handled environment configuration and code migration on **Tencent Cloud Servers**. (Detailed in the Discussion section of the paper).
+## Credit
+The model code and checkpoints are the work of the SAM-SLR authors (Songyao Jiang, Bin Sun, Lichen Wang, Yue Bai, Kunpeng Li, Yun Fu). Paper: https://arxiv.org/abs/2103.08833
