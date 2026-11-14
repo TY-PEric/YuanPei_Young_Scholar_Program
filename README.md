@@ -15,7 +15,7 @@ Final project from the Yuanpei Young Scholars computer vision program (2023-24).
 The released checkpoints come from the CVPR 2021 ChaLearn challenge and were trained on **AUTSL** (Turkish Sign Language, 226 signs). The result tables in the report (Figures 5 and 6) are **AUTSL validation** figures and match the SL-GCN and SSTCN tables in the SAM-SLR paper. The report and an earlier version of this README described them as WLASL-2000 results, which was wrong: SAM-SLR's WLASL-2000 Top-1 accuracy is under 60% (58.73% in the report's own Figure 3).
 
 ## Other files
-The three notebooks are coursework from the program's deep learning bootcamp, not part of the sign language pipeline:
+The three notebooks in `coursework/` are from the program's deep learning bootcamp, not part of the sign language pipeline:
 * `Deep_Learning_in_Practice_Bootcamp.ipynb`: PyTorch training template (Dataset class, DataLoaders, loss, optimizer and scheduler, Weights & Biases logging)
 * `Deep_learning_in_spaceship_titanic.ipynb`: the same template applied to the Kaggle Spaceship Titanic dataset
 * `YSA_FW23_Group_4_HW_1_ipynb_resnet50.ipynb`: group homework, ResNet-50 image classification with a Kaggle submission
